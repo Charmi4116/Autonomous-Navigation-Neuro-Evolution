@@ -36,6 +36,7 @@ An AI-based autonomous navigation system where agents learn to navigate complex 
 ## 📄 Conference Poster
 
 [View Conference Poster](poster/Autonomous-Navigation-Conference-Poster.pdf)
+[🌐 Open Poster in Browser](https://charmi4116.github.io/Autonomous-Navigation-Neuro-Evolution/)
 
 ## 👩‍💻 Authors
 
