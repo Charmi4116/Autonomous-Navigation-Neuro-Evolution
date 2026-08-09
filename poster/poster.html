@@ -1,0 +1,818 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0f1525;
+    --bg3: #141c2e;
+    --card: #1a2238;
+    --card2: #1e2840;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --text: #e8eaf0;
+    --muted: #8892a4;
+    --border: rgba(0,212,255,0.15);
+    --border2: rgba(124,58,237,0.2);
+    --glow: rgba(0,212,255,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .poster {
+    width: 100%;
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 4px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #0a0e1a 0%, #0f1a35 50%, #0a1525 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px 14px 8px;
+    margin-bottom: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .conf-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .title-main {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 3.5vw, 32px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .title-main span { color: var(--accent); }
+  .tagline {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .author-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .author-chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .author-chip strong { color: var(--text); font-weight: 500; }
+
+  /* ── GRID LAYOUTS ── */
+  .row { display: grid; gap: 5px; margin-bottom: 5px; }
+  .col-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .col-2 { grid-template-columns: 1fr 1fr; }
+  .col-2-1 { grid-template-columns: 2fr 1fr; }
+  .col-1-2 { grid-template-columns: 1fr 2fr; }
+  .col-3-2 { grid-template-columns: 3fr 2fr; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 7px 9px;
+  }
+  .card-accent { border-color: rgba(0,212,255,0.3); }
+  .card-purple { border-color: rgba(124,58,237,0.35); background: linear-gradient(135deg, #1a2238, #1e1a38); }
+  .card-green { border-color: rgba(16,185,129,0.3); }
+  .card-amber { border-color: rgba(245,158,11,0.3); }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-label.purple { color: #a78bfa; }
+  .section-label.green { color: var(--accent3); }
+  .section-label.amber { color: var(--accent4); }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .card-body {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ── KEY METRICS ── */
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px; }
+  .metric-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .metric-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .metric-value.purple { color: #a78bfa; }
+  .metric-value.green { color: var(--accent3); }
+  .metric-value.amber { color: var(--accent4); }
+  .metric-label { font-size: 10px; color: var(--muted); line-height: 1.3; }
+
+  /* ── INNOVATIONS ── */
+  .innovation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .innovation-item:last-child { border-bottom: none; }
+  .innov-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    min-width: 20px;
+    padding-top: 1px;
+  }
+  .innov-text { font-size: 11.5px; color: var(--muted); }
+  .innov-text strong { color: var(--text); font-weight: 500; }
+
+  /* ── ARCHITECTURE DIAGRAM ── */
+  .arch-diagram {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+  }
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 4px 0;
+  }
+  .arch-box {
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+    min-width: 70px;
+  }
+  .ab-blue { background: rgba(0,212,255,0.12); border: 1px solid rgba(0,212,255,0.35); color: var(--accent); }
+  .ab-purple { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.4); color: #a78bfa; }
+  .ab-green { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); color: var(--accent3); }
+  .ab-amber { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); color: var(--accent4); }
+  .ab-gray { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: var(--muted); }
+  .arch-arrow { color: var(--muted); font-size: 12px; }
+
+  /* ── NN DIAGRAM ── */
+  .nn-layer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .nn-node {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+  }
+  .nn-label {
+    font-size: 9px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 4px;
+    font-family: 'Space Mono', monospace;
+  }
+  .nn-connector {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(124,58,237,0.3));
+    align-self: center;
+    margin: 0 -4px;
+  }
+
+  /* ── GA FLOWCHART ── */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 3px 0;
+  }
+  .flow-box {
+    flex: 1;
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 10.5px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .flow-arrow { font-size: 11px; color: var(--muted); }
+  .flow-diamond {
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 10px;
+    text-align: center;
+    transform: none;
+    border: 1px dashed;
+  }
+
+  /* ── CHARTS ── */
+  .chart-area { position: relative; height: 100px; margin-top: 8px; }
+  canvas.sparkline { width: 100% !important; height: 100% !important; }
+
+  /* ── RESULTS TABLE ── */
+  .results-table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-top: 8px; }
+  .results-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    text-align: left;
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+  .results-table td { padding: 5px 8px; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .results-table td:first-child { color: var(--text); font-weight: 500; }
+  .td-good { color: var(--accent3) !important; }
+  .td-accent { color: var(--accent) !important; }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 10px;
+    margin: 2px 2px 2px 0;
+  }
+  .tag-blue { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+  .tag-purple { background: rgba(124,58,237,0.12); color: #a78bfa; border: 1px solid rgba(124,58,237,0.25); }
+  .tag-green { background: rgba(16,185,129,0.1); color: var(--accent3); border: 1px solid rgba(16,185,129,0.2); }
+  .tag-amber { background: rgba(245,158,11,0.1); color: var(--accent4); border: 1px solid rgba(245,158,11,0.2); }
+
+  /* ── PILL BULLETS ── */
+  .pill-list { list-style: none; }
+  .pill-list li {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 11px; color: var(--muted);
+    padding: 3px 0;
+  }
+  .pill-list li::before {
+    content: '▸';
+    color: var(--accent);
+    font-size: 9px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── FUTURE SCOPE ── */
+  .future-item {
+    background: rgba(0,0,0,0.2);
+    border-left: 2px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 6px 10px;
+    margin: 4px 0;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .future-item strong { color: #a78bfa; font-weight: 500; }
+
+  /* ── SPEECH CARDS ── */
+  .speech-card {
+    border-radius: 8px;
+    padding: 7px 9px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--muted);
+    border-left: 3px solid;
+  }
+  .sc-blue { background: rgba(0,212,255,0.05); border-color: var(--accent); }
+  .sc-purple { background: rgba(124,58,237,0.07); border-color: #7c3aed; }
+  .sc-green { background: rgba(16,185,129,0.06); border-color: var(--accent3); }
+  .speech-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  /* ── SENSOR DIAGRAM ── */
+  .sensor-wrap { text-align: center; }
+
+  /* ── EVOLUTION CYCLE ── */
+  .evo-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .evo-step:last-child { border-bottom: none; }
+  .evo-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .evo-text { font-size: 11px; color: var(--muted); }
+  .evo-text strong { color: var(--text); font-size: 11.5px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .footer-text { font-size: 10px; color: var(--muted); }
+  .footer-qr {
+    width: 40px; height: 40px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; color: var(--muted); text-align: center;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .col-3, .col-2, .col-2-1, .col-1-2, .col-3-2 { grid-template-columns: 1fr; }
+    .metric-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .university-logo{
+    position:absolute;
+    top:10px;
+    right:14px;
+    width:90px;
+    height:auto;
+    z-index:5;
+    background:rgba(255,255,255,0.95);
+    border-radius:10px;
+    padding:4px;
+  }
+
+</style>
+
+<div class="poster">
+
+  <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+  <div class="header">
+    <img src="data:image/jpeg;base64,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" alt="University Logo" class="university-logo">
+
+    
+    <div class="title-main">Autonomous Navigation via<br><span>Neuro-Evolutionary Algorithms</span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:12px;"><div><b>Authors:</b> Charmi Shah, Salomi Kureshi</div><div><b>Guide:</b> Vishal Acharya</div></div><div class="tagline">"Teaching machines to drive through survival of the fittest — no rules, no teacher, just evolution."</div>
+    <div class="author-row">
+      <div class="author-chip">
+        <strong>Domain</strong> &nbsp;|&nbsp; Artificial Intelligence &amp; Autonomous Systems
+      </div>
+      <div class="author-chip">
+        <strong>Stack</strong> &nbsp;|&nbsp; Python · Neural Networks · Genetic Algorithms
+      </div>
+      <div class="author-chip">
+        <strong>Track</strong> &nbsp;|&nbsp; Intelligent Systems &amp; Robotics
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ KEY METRICS ════════════════════════ -->
+  <div class="metric-grid">
+    <div class="metric-card">
+      <div class="metric-value">50+</div>
+      <div class="metric-label">Agents per generation</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value purple">30+</div>
+      <div class="metric-label">Evolution generations</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value green">78%</div>
+      <div class="metric-label">Collision reduction</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value amber">12×</div>
+      <div class="metric-label">Fitness improvement</div>
+    </div>
+  </div>
+
+  <!-- ROW 1 -->
+  <div class="row col-2">
+
+    <div class="card">
+      <div class="section-label">Problem Statement</div>
+      <div class="card-body">
+        <strong style="color:var(--text);">Challenge:</strong> How do autonomous systems learn safe navigation without human-labelled data or external AI libraries?<br><br>
+        Current systems rely on vast datasets and hand-crafted rules. This project explores a <strong style="color:var(--accent);">bio-inspired alternative</strong> — letting agents discover navigation through trial, error, and selection.
+      </div>
+    </div>
+
+    <div class="card card-purple">
+      <div class="section-label purple">Objectives</div>
+      <ul class="pill-list">
+        <li>Build a simulation environment with dynamic obstacles</li>
+        <li>Implement ray-cast sensors for spatial perception</li>
+        <li>Design a custom neural network controller</li>
+        <li>Apply genetic algorithm for agent evolution</li>
+        <li>Visualise neural activity and generational progress</li>
+        <li>Store high-performing models via Python backend</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════ ROW 2: Architecture + NN ════════════════════════════════════════════ -->
+  <div class="row col-2">
+
+    <div class="card">
+      <div class="section-label">System Architecture</div>
+      <div class="arch-diagram">
+        <!-- Layer 1: Inputs -->
+        <div class="arch-row">
+          <div class="arch-box ab-blue">Ray-Cast<br>Sensors</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-purple">Input Layer<br>(N×rays)</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-purple">Hidden<br>Layers</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-purple">Output<br>(steer/speed)</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-blue">Agent<br>Action</div>
+        </div>
+        <div style="height:8px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:1px;height:8px;background:var(--border);"></div>
+        </div>
+        <div class="arch-row">
+          <div class="arch-box ab-amber">Fitness Fn<br>evaluator</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-green">Selection<br>+ Crossover</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-green">Mutation<br>engine</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-amber">New Gen<br>weights</div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box ab-gray">DB Store<br>(best)</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="tag tag-blue">Simulation Engine</span>
+        <span class="tag tag-purple">Neural Controller</span>
+        <span class="tag tag-green">Genetic Optimizer</span>
+        <span class="tag tag-amber">Fitness Evaluator</span>
+        <span class="tag tag-purple">Real-Time Visualizer</span>
+        <span class="tag tag-blue">Python + SQLite DB</span>
+      </div>
+    </div>
+
+    <div class="card card-purple">
+      <div class="section-label purple">Neural Network Design</div>
+      <div style="display:flex;align-items:center;gap:4px;justify-content:center;padding:10px 0;">
+        <!-- Input layer -->
+        <div class="nn-layer">
+          <div class="nn-node" style="border-color:rgba(0,212,255,0.6);color:var(--accent);">s₁</div>
+          <div class="nn-node" style="border-color:rgba(0,212,255,0.6);color:var(--accent);">s₂</div>
+          <div class="nn-node" style="border-color:rgba(0,212,255,0.6);color:var(--accent);">s₃</div>
+          <div class="nn-node" style="border-color:rgba(0,212,255,0.6);color:var(--accent);">s₄</div>
+          <div class="nn-node" style="border-color:rgba(0,212,255,0.6);color:var(--accent);">s₅</div>
+          <div class="nn-label">INPUT<br>5 rays</div>
+        </div>
+        <div class="nn-connector"></div>
+        <!-- Hidden 1 -->
+        <div class="nn-layer">
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.7);color:#a78bfa;">h</div>
+          <div class="nn-label">HIDDEN<br>6 nodes</div>
+        </div>
+        <div class="nn-connector"></div>
+        <!-- Hidden 2 -->
+        <div class="nn-layer">
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.5);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.5);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.5);color:#a78bfa;">h</div>
+          <div class="nn-node" style="border-color:rgba(124,58,237,0.5);color:#a78bfa;">h</div>
+          <div class="nn-label">HIDDEN<br>4 nodes</div>
+        </div>
+        <div class="nn-connector"></div>
+        <!-- Output -->
+        <div class="nn-layer">
+          <div class="nn-node" style="border-color:rgba(16,185,129,0.7);color:var(--accent3);">θ</div>
+          <div class="nn-node" style="border-color:rgba(16,185,129,0.7);color:var(--accent3);">v</div>
+          <div class="nn-label">OUTPUT<br>steer · v</div>
+        </div>
+      </div>
+      <div class="card-body" style="margin-top:6px;font-size:10.5px;">
+        Activation: <span style="color:var(--accent)">tanh</span> / <span style="color:var(--accent)">ReLU</span> · Weights encoded as chromosomes · No backprop — evolved by GA
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════ ROW 3: Methodology + Sensor + GA ════════════════════════════════════ -->
+  <div class="row col-3">
+
+    <div class="card">
+      <div class="section-label">Methodology</div>
+      <div class="evo-step">
+        <div class="evo-icon" style="background:rgba(0,212,255,0.12);font-size:14px;">🌐</div>
+        <div class="evo-text"><strong>Initialise</strong> — 50 agents with random neural weights spawned in simulation environment</div>
+      </div>
+      <div class="evo-step">
+        <div class="evo-icon" style="background:rgba(124,58,237,0.12);font-size:14px;">📡</div>
+        <div class="evo-text"><strong>Sense</strong> — Ray-cast sensors detect obstacle proximity in 5 directions in real-time</div>
+      </div>
+      <div class="evo-step">
+        <div class="evo-icon" style="background:rgba(245,158,11,0.12);font-size:14px;">🧠</div>
+        <div class="evo-text"><strong>Decide</strong> — Neural network processes sensor data → outputs steering angle and velocity</div>
+      </div>
+      <div class="evo-step">
+        <div class="evo-icon" style="background:rgba(16,185,129,0.12);font-size:14px;">📊</div>
+        <div class="evo-text"><strong>Evaluate</strong> — Fitness = distance × survival time − collision penalty</div>
+      </div>
+      <div class="evo-step">
+        <div class="evo-icon" style="background:rgba(0,212,255,0.12);font-size:14px;">🔁</div>
+        <div class="evo-text"><strong>Evolve</strong> — Top 20% selected, crossed over and mutated → new generation</div>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <div class="section-label">Ray-Casting Sensor</div>
+      <!-- SVG sensor diagram -->
+      <svg viewBox="0 0 200 160" width="100%" style="display:block;margin:4px auto;">
+        <defs>
+          <marker id="ra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"/>
+          </marker>
+        </defs>
+        <!-- road boundary -->
+        <rect x="10" y="10" width="180" height="140" rx="8" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <!-- obstacles -->
+        <rect x="120" y="30" width="30" height="20" rx="4" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.5)" stroke-width="0.8"/>
+        <text x="135" y="43" text-anchor="middle" font-size="7" fill="#f59e0b" font-family="DM Sans">wall</text>
+        <rect x="40" y="90" width="25" height="18" rx="4" fill="rgba(239,68,68,0.2)" stroke="rgba(239,68,68,0.5)" stroke-width="0.8"/>
+        <text x="52" y="102" text-anchor="middle" font-size="7" fill="#ef4444" font-family="DM Sans">obs</text>
+        <!-- agent car -->
+        <rect x="84" y="72" width="32" height="18" rx="5" fill="rgba(0,212,255,0.2)" stroke="rgba(0,212,255,0.7)" stroke-width="1.2"/>
+        <text x="100" y="83" text-anchor="middle" font-size="8" fill="#00d4ff" font-family="DM Sans, sans-serif" font-weight="600">CAR</text>
+        <!-- ray lines -->
+        <line x1="100" y1="72" x2="100" y2="15" stroke="#00d4ff" stroke-width="0.8" opacity="0.6" stroke-dasharray="3,2" marker-end="url(#ra)"/>
+        <line x1="100" y1="72" x2="145" y2="35" stroke="#00d4ff" stroke-width="0.8" opacity="0.6" stroke-dasharray="3,2" marker-end="url(#ra)"/>
+        <line x1="100" y1="72" x2="55" y2="40" stroke="#00d4ff" stroke-width="0.8" opacity="0.6" stroke-dasharray="3,2" marker-end="url(#ra)"/>
+        <line x1="116" y1="81" x2="185" y2="81" stroke="#a78bfa" stroke-width="0.8" opacity="0.6" stroke-dasharray="3,2" marker-end="url(#ra)"/>
+        <line x1="84" y1="81" x2="20" y2="81" stroke="#a78bfa" stroke-width="0.8" opacity="0.6" stroke-dasharray="3,2" marker-end="url(#ra)"/>
+        <!-- labels -->
+        <text x="100" y="12" text-anchor="middle" font-size="7.5" fill="rgba(0,212,255,0.8)" font-family="DM Sans">front</text>
+        <text x="172" y="84" text-anchor="start" font-size="7" fill="rgba(167,139,250,0.8)" font-family="DM Sans">R</text>
+        <text x="14" y="84" text-anchor="start" font-size="7" fill="rgba(167,139,250,0.8)" font-family="DM Sans">L</text>
+        <text x="152" y="42" text-anchor="start" font-size="7" fill="rgba(0,212,255,0.7)" font-family="DM Sans">F-R</text>
+        <text x="30" y="42" text-anchor="start" font-size="7" fill="rgba(0,212,255,0.7)" font-family="DM Sans">F-L</text>
+        <!-- hit points -->
+        <circle cx="100" cy="15" r="2.5" fill="#00d4ff" opacity="0.8"/>
+        <circle cx="145" cy="35" r="2.5" fill="#f59e0b" opacity="0.9"/>
+        <circle cx="20" cy="81" r="2.5" fill="#a78bfa" opacity="0.8"/>
+      </svg>
+      <div class="card-body" style="font-size:10.5px;text-align:center;">
+        5 rays cast from vehicle · distance normalised 0–1 · collision = fitness penalty
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Genetic Algorithm</div>
+      <div class="flow-step">
+        <div class="flow-box ab-blue" style="border-radius:6px;border:1px solid rgba(0,212,255,0.3);font-size:10px;">Population Init<br><span style="color:var(--muted);font-size:9px;">random weights</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:11px;">↓</div>
+      <div class="flow-step">
+        <div class="flow-box ab-amber" style="border-radius:6px;border:1px solid rgba(245,158,11,0.3);font-size:10px;">Fitness Eval<br><span style="color:var(--muted);font-size:9px;">distance × time</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:11px;">↓</div>
+      <div class="flow-step">
+        <div class="flow-box ab-green" style="border-radius:6px;border:1px solid rgba(16,185,129,0.3);font-size:10px;">Selection<br><span style="color:var(--muted);font-size:9px;">top 20% elites</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:11px;">↓</div>
+      <div class="flow-step">
+        <div class="flow-box ab-purple" style="border-radius:6px;border:1px solid rgba(124,58,237,0.3);font-size:10px;">Crossover<br><span style="color:var(--muted);font-size:9px;">single-point swap</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:11px;">↓</div>
+      <div class="flow-step">
+        <div class="flow-box ab-blue" style="border-radius:6px;border:1px solid rgba(0,212,255,0.3);font-size:10px;">Mutation<br><span style="color:var(--muted);font-size:9px;">rate: 0.05–0.1</span></div>
+      </div>
+      <div style="text-align:center;color:var(--muted);font-size:11px;">↓ loop</div>
+      <div class="flow-step">
+        <div class="flow-box ab-gray" style="border-radius:6px;font-size:10px;">Convergence<br><span style="color:var(--muted);font-size:9px;">Gen 25–35</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════ ROW 4: Key Innovations (JUDGE FOCUS) ══════════════════════════════ -->
+  <div class="row">
+    <div class="card" style="border-color:rgba(0,212,255,0.4);background:linear-gradient(135deg,#0f1525,#141c30);">
+      <div class="section-label">⚡ Key Innovations</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;">
+        <div class="innovation-item">
+          <div class="innov-num">01</div>
+          <div class="innov-text"><strong>Zero-Knowledge Bootstrap</strong> — agents start with no environmental data; all intelligence emerges purely from evolutionary pressure</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">02</div>
+          <div class="innov-text"><strong>Custom NN without Libraries</strong> — neural network built from scratch without TensorFlow, PyTorch, or Keras — full architectural transparency</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">03</div>
+          <div class="innov-text"><strong>Real-Time Neuro-Visualization</strong> — live display of active neural pathways, weight intensity, and decision flow during agent runtime</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">04</div>
+          <div class="innov-text"><strong>Adaptive Fitness Function</strong> — multi-variable scoring (distance + survival time − collisions) steers evolution toward practical driving behaviour</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">05</div>
+          <div class="innov-text"><strong>Persistent Model Database</strong> — Python backend stores top-performing chromosomes, enabling cross-session learning and model comparison</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">06</div>
+          <div class="innov-text"><strong>Explainable AI by Design</strong> — every decision traceable to sensor input → weight activation → output, supporting interpretability research</div>
+        </div>
+        <div class="innovation-item">
+          <div class="innov-num">07</div>
+          <div class="innov-text"><strong>Bio-inspired over Data-driven</strong> — demonstrates a viable alternative to deep learning pipelines requiring large labelled datasets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION REMOVED -->
+
+<!-- ═══════════════════════════════ ROW 6: Industry + Future Scope ══════════════════════════════════════ -->
+    <div class="row">
+<div class="card" style="background:linear-gradient(135deg,#0f1a2e,#0a1520);border-color:rgba(16,185,129,0.3);">
+      <div class="section-label green">Conclusion</div>
+      <div class="card-body">
+        This project demonstrates that <strong style="color:var(--accent)">intelligent autonomous navigation can emerge without pre-programmed rules, labelled data, or external AI libraries</strong> — using only the power of neuro-evolution.
+        <br><br>
+        Combining <strong style="color:#a78bfa">custom neural networks</strong> with <strong style="color:var(--accent3)">genetic algorithms</strong>, virtual agents evolved from random controllers to competent navigators — reducing collisions by 78% over 30 generations.
+        <br><br>
+        The project bridges <strong style="color:var(--accent4)">evolutionary biology</strong>, <strong style="color:var(--accent)">autonomous systems</strong>, and <strong style="color:var(--accent3)">explainable AI</strong> — offering a transparent, interpretable approach to machine intelligence.
+      </div>
+      <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;">
+        <span class="tag tag-green">Emergent Intelligence</span>
+        <span class="tag tag-blue">Explainable AI</span>
+        <span class="tag tag-purple">Neuro-Evolution</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+const gens = [1,5,10,15,20,25,30];
+const ctx = document.getElementById('chart1').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: gens.map(g => 'G'+g),
+    datasets: [
+      {
+        label: 'Fitness',
+        data: [48, 142, 310, 420, 498, 545, 576],
+        borderColor: '#00d4ff',
+        backgroundColor: 'rgba(0,212,255,0.07)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 3,
+        pointBackgroundColor: '#00d4ff'
+      },
+      {
+        label: 'Distance',
+        data: [12, 38, 87, 120, 156, 188, 218],
+        borderColor: '#a78bfa',
+        backgroundColor: 'rgba(167,139,250,0.05)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: false,
+        pointRadius: 3,
+        pointBackgroundColor: '#a78bfa'
+      },
+      {
+        label: 'Survival',
+        data: [4, 12, 24, 36, 45, 55, 63],
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16,185,129,0.05)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: false,
+        pointRadius: 3,
+        pointBackgroundColor: '#10b981'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1a2238',
+        titleColor: '#00d4ff',
+        bodyColor: '#8892a4',
+        borderColor: 'rgba(0,212,255,0.2)',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#8892a4', font: { size: 10 } },
+        grid: { color: 'rgba(255,255,255,0.04)' }
+      },
+      y: {
+        ticks: { color: '#8892a4', font: { size: 10 } },
+        grid: { color: 'rgba(255,255,255,0.04)' }
+      }
+    }
+  }
+});
+</script>
